@@ -9,3 +9,10 @@
 
 // TODO
 
+
+## Configurations
+
+| NAME               | REQUIRED | TYPE               | NOTES                          |
+|--------------------|----------|--------------------|--------------------------------|
+| GOOGLE_PROJECT_ID      | ○        | STRING             | GCP project id             |
+
