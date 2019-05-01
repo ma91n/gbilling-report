@@ -43,13 +43,16 @@ func main() {
 		series = append(series, perSeries)
 	}
 
+	// c.f. https://github.com/wcharczuk/go-chart
 	graph := chart.Chart{
 		Title:      "gcp billing",
 		TitleStyle: chart.StyleShow(),
 		XAxis: chart.XAxis{
-			Style: chart.StyleShow(),
-			ValueFormatter: func(v interface{}) string {
-				return  time.Unix(0, int64(v.(float64))).Format("01/02")
+			Name:      "Day",
+			NameStyle: chart.StyleShow(),
+			Style:     chart.StyleShow(),
+			ValueFormatter: func(v interface{}) string { // change format YYYY-MM-DD to MM/DD
+				return time.Unix(0, int64(v.(float64))).Format("01/02")
 			},
 		},
 		YAxis: chart.YAxis{
@@ -59,7 +62,8 @@ func main() {
 			ValueFormatter: func(v interface{}) string { // round under decimal point
 				return strconv.FormatInt(int64(v.(float64)), 10)
 			},
-			Range: &chart.ContinuousRange{Min: 0, Max: 1000},
+			Range:     &chart.ContinuousRange{Min: 0, Max: costs.RoundMaxCost()},
+			//GridLines: []chart.GridLine{{Value: 200, Style: chart.StyleShow()}, {Value: 400, Style: chart.StyleShow()}, {Value: 600, Style: chart.StyleShow()}, {Value: 800, Style: chart.StyleShow()}},
 		},
 		Series: series,
 	}

@@ -2,6 +2,9 @@ package billing
 
 import (
 	"time"
+	"math"
+	"strconv"
+	"log"
 )
 
 // Cost is gcp billing per project and day.
@@ -18,9 +21,7 @@ type TotalCost []Cost
 
 // Divide total cost to per project.
 func (t TotalCost) DividePerProject() map[string]ProjectCost {
-
 	m := map[string]ProjectCost{}
-
 	for _, cost := range t {
 		if costs, ok := m[cost.ProjectName]; ok {
 			m[cost.ProjectName] = append(costs, cost)
@@ -28,7 +29,6 @@ func (t TotalCost) DividePerProject() map[string]ProjectCost {
 		}
 		m[cost.ProjectName] = append(make([]Cost, 0), cost)
 	}
-
 	return m
 }
 
@@ -37,6 +37,31 @@ func (t TotalCost) Currency() string {
 		return ""
 	}
 	return t[0].Currency
+}
+
+func (t TotalCost) MaxCost() float64 {
+	max := math.SmallestNonzeroFloat64
+	for _, v := range t {
+		if max < v.Cost {
+			max = v.Cost
+		}
+	}
+	return max
+}
+
+func (t TotalCost) RoundMaxCost() float64 {
+	max := strconv.Itoa(int(t.MaxCost()))
+
+	ratio := 1
+	for i := 0; i < len(max)-1; i++ {
+		ratio *= 10
+	}
+
+	digit := int(t.MaxCost()) / ratio
+	top := (digit + 1) * ratio
+
+	log.Print("top", top, "ratio", ratio)
+	return float64(top)
 }
 
 // ProjectCost is timeseries cost per project
