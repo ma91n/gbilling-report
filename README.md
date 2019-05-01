@@ -5,6 +5,10 @@
 
 **Work In Progress**
 
+## Output Examples
+
+![](output.png)
+
 ## Getting Started
 
 // TODO

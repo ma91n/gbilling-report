@@ -51,12 +51,17 @@ func main() {
 			Name:      costs.Currency(),
 			NameStyle: chart.StyleShow(),
 			Style:     chart.StyleShow(),
-			ValueFormatter: func(v interface{}) string {
+			ValueFormatter: func(v interface{}) string { // round under decimal point
 				return strconv.FormatInt(int64(v.(float64)), 10)
 			},
 			Range: &chart.ContinuousRange{Min: 0, Max: 1000},
 		},
 		Series: series,
+	}
+
+	// line description
+	graph.Elements = []chart.Renderable{
+		chart.LegendLeft(&graph),
 	}
 
 	buffer := bytes.NewBuffer([]byte{})
