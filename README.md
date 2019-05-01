@@ -12,7 +12,8 @@
 
 ## Configurations
 
-| NAME               | REQUIRED | TYPE               | NOTES                          |
-|--------------------|----------|--------------------|--------------------------------|
-| GOOGLE_PROJECT_ID      | ○        | STRING             | GCP project id             |
+| NAME               | REQUIRED | TYPE               | NOTES                          |     Example     |
+|--------------------|----------|--------------------|--------------------------------|-----------------|
+| GOOGLE_PROJECT_ID      | ○        | STRING             | GCP project id             |  gcp-project-123456 |
+| BILLING_TABLE          | ○        | STRING             | GCP exported billing table name        | project-name.dataset-id.table-name |
 
