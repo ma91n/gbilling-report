@@ -9,6 +9,7 @@ import (
 	"github.com/laqiiz/gbilling-report/billing"
 	"github.com/laqiiz/gbilling-report/storage"
 	"strconv"
+	"time"
 )
 
 func main() {
@@ -33,6 +34,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Print("load biling")
 
 	var series []chart.Series
 	for k, v := range costs.DividePerProject() {
@@ -46,6 +48,9 @@ func main() {
 		TitleStyle: chart.StyleShow(),
 		XAxis: chart.XAxis{
 			Style: chart.StyleShow(),
+			ValueFormatter: func(v interface{}) string {
+				return  time.Unix(0, int64(v.(float64))).Format("01/02")
+			},
 		},
 		YAxis: chart.YAxis{
 			Name:      costs.Currency(),
