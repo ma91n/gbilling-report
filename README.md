@@ -7,7 +7,7 @@
 
 ## Output Examples
 
-![](output.png)
+![example output graph](example_output.png)
 
 ## Getting Started
 
