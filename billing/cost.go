@@ -4,7 +4,8 @@ import (
 	"time"
 )
 
-// Cost is gcp billing per project and day
+// Cost is gcp billing per project and day.
+// c.f. https://cloud.google.com/billing/docs/how-to/export-data-bigquery#billing_data_in
 type Cost struct {
 	ProjectName string  `bigquery:"project_name"`
 	Day         string  `bigquery:"export_time"`
